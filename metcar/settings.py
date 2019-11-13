@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     
     #Local Apps
     'main',
+    'provider',
 ]
 
 REST_FRAMEWORK = {
