@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.utils.module_loading import import_string
-from django.contrib.postgres.fields import JSONField
+import jsonfield
 
 
 class Provider(models.Model):
@@ -11,7 +11,7 @@ class Provider(models.Model):
     )
     name = models.CharField(max_length=50)
     status = models.CharField(max_length=15, choices=STATUS, default='active')
-    data = models.CharField(max_length=100)
+    data = jsonfield.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     @property
@@ -19,7 +19,7 @@ class Provider(models.Model):
         print('Provider.get_client init oldu')
         path_ = f'provider.clients.{self.name}.Client'
         class_ = import_string(path_)
-        return class_(self.data)
+        return class_(self.data["url"])
 
     @property
     def get_adapter(self):

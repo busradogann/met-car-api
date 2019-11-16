@@ -21,6 +21,4 @@ class CarList(APIView):
 			result = adapter.search()
 			response_data.append(result['results'])
 
-			if response_data:
-				return Response(response_data, status=status.HTTP_200_OK)
 		return Response(response_data)
